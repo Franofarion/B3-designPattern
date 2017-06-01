@@ -1,4 +1,4 @@
-import Strategy.*;
+package Strategy.StrategyCanard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by baptiste on 01/06/17.
  */
-public class DesignPattern {
+public class StrategyCanard {
 
     public static void main(String[] args){
         List<Canard> canards = new ArrayList<>();
