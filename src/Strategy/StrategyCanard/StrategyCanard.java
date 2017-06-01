@@ -9,7 +9,7 @@ import java.util.List;
 public class StrategyCanard {
 
     public static void main(String[] args){
-        List<Canard> canards = new ArrayList<>();
+        List<Canard> canards = new ArrayList<Canard>();
         canards.add(new Colvert());
         canards.add(new Morillon());
         Canard canardEnBois = new CanardEnBois();
