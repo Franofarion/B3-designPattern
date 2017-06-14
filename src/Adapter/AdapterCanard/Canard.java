@@ -17,7 +17,6 @@ public abstract class Canard{
         System.out.println("CoinCoin!");
     }
 
-
     public Vol getMaFaconDeVoler() {
         return maFaconDeVoler;
     }
