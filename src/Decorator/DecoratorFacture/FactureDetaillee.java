@@ -1,4 +1,4 @@
-package Decorator.Decorator.Facture;
+package Decorator.DecoratorFacture;
 
 import java.util.Date;
 
