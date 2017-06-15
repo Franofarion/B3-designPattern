@@ -15,7 +15,7 @@ public class MainDecorator {
     public static void main(String[] args) {
 
         try {
-            BufferedReader br = new BufferReaderDeco(new FileReader("/home/baptiste/textDeco.txt"));
+            BufferedReader br = new BufferReaderDeco(new FileReader("/home/baptiste/textDeco.txt")); //File path need to be changed for your project
             while (br.ready()){
                 System.out.println(br.readLine());
             }
