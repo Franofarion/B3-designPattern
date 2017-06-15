@@ -1,22 +1,24 @@
 package Decorator.DecoratorBufferUpperCase;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by baptiste on 14/06/17.
  */
-public class BufferReader {
+public class BufferReaderDeco extends BufferedReader{
 
-    private BufferedReader reader;
-    private File path;
-
-    BufferReader(File p_path){
-        path = p_path;
+    BufferReaderDeco(Reader in){
+        super(in);
     }
 
+
+    @Override
+    public String readLine() throws IOException{
+        return super.readLine().toUpperCase();
+    }
+
+
+/*
     public BufferedReader getContentFile(){
         try( BufferedReader br = new BufferedReader(new FileReader("fichier.txt")) ) {
 
@@ -25,5 +27,6 @@ public class BufferReader {
         }
         return reader;
     }
+*/
 
 }

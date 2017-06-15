@@ -1,0 +1,287 @@
+Design Pattern
+Design Pattern
+ Concept né de l'architecture / urbanisme
+A Pattern Language, Christopher Alexander et al, 1977
+ Chaque pattern :
+– décrit un problème récurrent dans notre envirronnement,
+– puis le coeur de la solution qui sera utilisable
+indéfiniment, quelle que soit la mise en pratique choisie
+Design Patterns Informatiques
+ Adapter les idées d'Alexander à la conception des
+logiciels
+ Le gang des 4 (GoF : Gang of Four) propose un
+catalogue de 23 design patterns (1995)
+– Erich Gamma (IBM, architecte principal du
+projet ECLIPSE)
+– Richard Helm (IBM)
+– Ralph Johnson (Université de l'Illinois)
+– John Vlissides (IBM)
+Design Patterns Informatiques
+Un design pattern est la description d'un
+ensemble d'objets communiquant et/ou de
+classes/interfaces qui sont adaptées pour
+résoudre un problème général de conception
+dans un contexte particulier (d'après GoF)
+Exercices de réflexion
+ Simulation de Canards
+Evolution du programme : ajout de
+nouveaux comportements aux canards
+ Ajout du comportement vole, avec le diagramme
+de classes précédent nous avons :
+Ajout de classes
+CanardEnCaoutchouc
+
+
+
+
+
+
+
+ Comment faire ???
+Rédéfinition de la méthode ???
+Utilisation d'une Interface
+
+
+
+
+
+
+
+
+ Il va falloir redéfinir le code pour chaque classe
+Solution : reifier le comportement
+variable
+ La classe Canard
+contient des attributs
+et des comportements
+stables
+ Classes qui encapsule les
+comportements succeptibles de
+changer en cours d'excécution
+ou d'évoluer dans les
+prochaines versions
+Déléguer le comportement variable à
+un attribut
+Le comportement a besoin d'infos de
+la classe Canard
+ PUSH : l'objet client transmet les infos :
+– maFaconDeVoler.vole(10);
+ PULL : l'objet va chercher les infos chez le client
+passé en paramètre:
+– maFaconDeVoler.vole(this);
+Le Pattern Stratégie
+ Motivation : Définir une famille d'algorithme,
+encapsuler chacun d'eux et les rendre
+interchangeables.
+Principe
+ Identifier les aspects de votre application qui sont
+succeptible de changer (en cours d'exécution ou
+maintenance évolutive) et séparer les de ce qui est
+stable
+ Manipuler les objets à travers leurs interfaces.
+Surtout les objets dont les classes sont succeptibles
+d'évoluer :
+A x = new A() ;
+IA x = new A(); IA x = new Abis();
+ Favoriser la composition plutot que l'héritage
+Héritage ou Composition ???
+Héritage Composition
+A programmer
+La classe Commande est responsable du calcul du
+montant de la commande. Celui-ci contient un calcul de taxes qui
+peut varier selon les pays d'où vient la commande. On prévoit à
+l'avenir de pouvoir traiter des commandes venant de nombreux
+pays. Utiliser le pattern Stratégie pour compléter ce diagramme de
+classes
+Comment adapter une classe du
+marché
+ Dans notre application Canard, nous souhaitons
+insérer dans notre gestion un Dodo.
+ Le Dodo est un oiseau de la famille du Dindon
+Adapter
+ L'adapteur implante l'interface connu de mon
+application
+ L'adapteur envoi des messages correspondants à
+l'interface de la classe du commerce
+ Pas de modification de code, uniquement creation
+Le pattern Adaptateur
+ Motivation : convertir l'interface d'une classe en
+une autre conforme à l'attente du client.
+L'adaptateur permet la collaboration de classes
+incompatibles
+Rappel JDBC
+ Voir code
+Masquer par une Facade
+Le Pattern Facade
+ Motivation : fournir une interface unifié à un
+ensemble d'interfaces d'un SOUS SYSTEME. Une
+interface definit une interface de haut niveau qui
+rend le sous systeme plus facile à utiliser
+Facade vs Adaptateur
+ Le but d'une facade est de simplifier une ou un
+ensemble d'interfaces
+ Le but d'un adaptateur est de reformuler une ou
+un ensemble d'interfaces
+ Voir http://commons.apache.org/dbutils/
+Loi de Déméter
+ Ne parle qu'à tes amis immédiats :
+Une méthode f de la classe A ne doit pouvoir
+invoquer qu'une méthode g :
+ De la meme classe
+ D'une classe d'un parametre de f
+ D'une classe d'un objet instancié localement dans f
+ D'une classe d'un attribut de A
+Violation de la loi Déméter
+Class Voiture{
+Moteur m ;
+Public Voiture(int nbCv){ m = new Moteur(nbCv); }
+Public void demarre (Cle c){
+ Porte p = new Porte();
+ Code k = c.troune();
+ boolean OK = k.verifie();
+ if(OK){
+ m.part();
+ allumeTableauDeBord();
+ p.fermeToi();
+ }
+}
+Etude d'Impression
+Etude d'Impression Explosion des
+besoins
+1er Solution
+Violation du principe Ouvert Ferme de Bertrand Meyer : les classes
+doivent etre ouvertes à des extentions mais fermés à des
+modifications
+if(enTete) imprimeEnTete();
+imprimeDetails();
+super.imprimetoi();
+if(pub) imprimePub();
+if(enTete) imprimeEnTete();
+super.imprimetoi();
+if(pub) imprimePub();
+2 ème Solution : emballer les factures
+Decorateur
+ On peut utiliser un ou plusieurs décorateurs pour
+modifier le comportement d'un objet. Le
+décorateur ajoute son propre comportement avant
+ou apres l'objet décoré.
+ L'objet peut etre decoré à tout moment au cours du
+programme
+Décorateur
+ Motivation : le Décorateur attache dynamiquement
+de nouvelles responsabilités à un objet. Solution
+plus flexible que l'héritage.
+Exemple en JAVA
+BufferedInputStream bis = new BufferedInputStream ( new
+FileInputStream(« toto.txt ») );
+int c = bis.read();
+Concevoir une application console permettant de lire un fichier
+texte (ASCII) et de l'afficher en transformant toutes les lettres
+minuscules en majuscules. Dessiner le diagramme des classes en
+utilisant le pattern Décorateur, puis programmer l'application en
+java
+Comment créer une seule instance
+ Design Pattern : SINGLETON
+public class Singleton{
+private static Singleton uniqueInstance;
+public static Singleton getInstance(){
+ if(uniqueInstance != null){ uniqueInstance = new
+ singleton();}
+ return uniqueInstance;
+}
+Principe d'Inversion des Dépendances
+ Dépendre d'une abstraction, pas d'une
+implémentation
+ La logique de l'application utilise des interfaces
+ Les modules de bas niveau dépendent des
+inetrfaces (elles doivent les implémenter)
+Design Pattern Fabrique Abstraite
+ Dans la classe X
+– Moineau m = new Moineau(); X dépend de
+Moineau
+– IOiseau m = new Moineau(); X dépend toujours
+de Moineau
+– Ioiseau m = maFabriqueAnimaux.creeMoineau();
+ La classe X ne dépend plus que de la classe
+concrète qui fabrique les objets animaux
+AbstractFactory
+ Motivation : Fournir une interface pour la création
+de famille d'objet sans qu'ils soit nécessaire de
+spécifier leur classes concrètes
+Dessiner des formes
+Design Pattern Pont
+Code utilisation Pattern Pont
+public static void main (tring[] a){
+ Forme f;
+ PrgDessin pg;
+ pg = new PgDessinLib1();
+ f = new Rectangle(pg,0,0,100,100);
+ f.dessineToi();
+ pg = new PgDessinLib2();
+ f = new Triangle(pg, 50,0,0,50,5,50);
+ f.dessineToi();
+}
+Le Pattern Pont (Bridge)
+ Motivation : Découpler une abstraction de son
+implémentation de façon à pouvoir varier les deux
+indépendamment
+Pattern Composite
+ Motivation : regrouper des objets dans une
+structure arborescente pour représenter une
+hierarchie. Le composite permet à un client de
+s'adresser de la meme façon à un objet individuel
+ou à une composition d'objets
+Composants Java suive Composite
+Void rafraichiToi(){
+ for(Component c : composants){
+ c.repaint();
+}
+Revenons à nos Canards
+Ajout d'une Oie
+ public class Oie {
+ public void cancanne(){
+ System.out.println("Honk Honk");
+ }
+ }
+
+ Quel Pattern ???
+
+Un ornithologue dans le parc
+ Il souhaite compter le nombre total de sons émis
+uniquement par les vrais canards sans modifier les
+classes existantes ....
+
+ Quel Pattern
+
+La création devient complexe
+La chasse aux Canards
+Qui Fait Quoi ?
+Décorateur Emballe un objet pour changer son comportement
+Facade Simplifie l'interface d'un emsemble de classe
+Stratégie Encapsule le comportement interchangeable et utilise
+la délégation pour passer de l'un à l'autre
+Adaptateur Emballe une classe dans une nouvelle interface
+Observateur Prévient les objet qu'un état à changer
+Shémas de méthode Les sous classe décident coment implémenter un
+algorithme
+Singleton Assure qu'une classe ne possède qu'une seule
+instance
+Fabrique Abstraite Fabrique des familles d'objets sans préciser leur
+classes concrète
+Commande Encapsule une requète dans un objet
+Pont Découpe une hiérarchie d'abstraction d'une hiérarchie
+d'implémentations
+Composite Permet de représenter une hiérarchie tout-parties
+Gestion des évolutions et
+dépendances
+ Principe d'ouverture/fermeture de Bertrand Meyer
+– Un module doit être ouvert aux extensions mais
+fermé aux modification
+ Principe de substitution de Barbara Liskov
+– Les méthodes qui utilisent des objets d'une classe
+doivent pouvoir utiliser des objets d'une sous
+classe sans meme le savoir
+ Principe de séparation des interfaces de Robert
+Martin
+– Les clients ne doivent pas être forcés de dépendre
+d'interfaces qu'ils n'utilisent pas
