@@ -4,7 +4,7 @@ package Controle.DecorateurDessert;
  * Created by baptiste on 15/06/17.
  */
 public class DecoDessert extends Dessert {
-    private Dessert dessert;
+    protected Dessert dessert;
 
     DecoDessert(Dessert p_dessert){
         dessert = p_dessert;
